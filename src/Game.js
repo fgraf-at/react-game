@@ -10,7 +10,7 @@ function Game() {
     const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
     const [category, setCategory] = useState(""); // Neu: Zustand für die Kategorie
 
-    const categories = ['never_ever', 'categories', 'truth_or_shot', 'vote']; // Aktualisieren Sie diese Zeile mit Ihren Kategorienamen
+    const categories = ['never_ever', 'categories', 'truth_or_shot', 'vote', 'dare'];
 
     useEffect(() => {
         fetchPlayers();
@@ -57,8 +57,10 @@ function Game() {
                 {currentPlayer && question ? (
                     <div className="question-container">
 
-                        <div className="player-name">Spieler: {currentPlayer.name}</div>
-
+                        {!(question.category === 'never_ever' || question.category === 'vote')  ? (
+                            <div className="player-name">Spieler: {currentPlayer.name}</div>
+                        ) : (<p></p>)
+                        }
                         <div className="category-info">
                             <p>Kategorie: {question.category}</p>
                         </div>

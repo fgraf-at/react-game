@@ -109,7 +109,6 @@ export async function getRandomQuestion(category) {
     if (category) {
       // Wenn eine Kategorie angegeben wurde, nur Fragen dieser Kategorie abrufen
       q = query(questionsCollection, where("category", "==", category));
-
     } else {
       // Ansonsten alle Fragen abrufen
       q = questionsCollection;
@@ -122,35 +121,38 @@ export async function getRandomQuestion(category) {
     const questionsData = querySnapshot.docs.map((doc) => doc.data());
 
     // Fragen der gewählten Kategorie in ein Array konvertieren
-    let questions = [];
-    let categoryQ: string = "";
+    let categoryQuestions = [];
     questionsData.forEach((doc) => {
-      categoryQ = doc.category;
-      questions.push(...doc.questions);
+      categoryQuestions.push({questions: doc.questions, category: doc.category});
     });
 
-    // Eine zufällige Frage auswählen, die noch nicht gestellt wurde
-    let randomIndex;
-    do {
-      randomIndex = Math.floor(Math.random() * questions.length);
-    } while (askedQuestions.includes(randomIndex) && askedQuestions.length < 70);
+    // Eine zufällige Kategorie auswählen
+    let randomCategoryIndex = Math.floor(Math.random() * categoryQuestions.length);
+    let selectedCategory = categoryQuestions[randomCategoryIndex];
 
-    // Wenn wir weniger als 64 Fragen haben, leeren wir das Array
-    if (askedQuestions.length === 64) {
+    // Eine zufällige Frage aus der ausgewählten Kategorie auswählen
+    let randomQuestionIndex;
+    do {
+      randomQuestionIndex = Math.floor(Math.random() * selectedCategory.questions.length);
+    } while (askedQuestions.includes(randomQuestionIndex) && askedQuestions.length < 70);
+
+    // asked questions can repeat after 70 times
+    if (askedQuestions.length === 70) {
       askedQuestions = [];
     }
 
     // Füge den Index der ausgewählten Frage zum Array hinzu
-    askedQuestions.push(randomIndex);
+    askedQuestions.push(randomQuestionIndex);
 
     // Die zufällig ausgewählte Frage zurückgeben
-    return {question: questions[randomIndex], category: categoryQ};
+    return {question: selectedCategory.questions[randomQuestionIndex], category: selectedCategory.category};
   } catch (error) {
     // Fehlerbehandlung
     console.error('Error getting random question:', error);
     return null;
   }
 }
+
 
 export async function deletePlayer(sessionId, playerId) {
   try {
