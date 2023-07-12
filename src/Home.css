@@ -1,0 +1,26 @@
+/* Home.css */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #222831; /* Dunkles Grau */
+    padding: 60px;
+    margin-top: 80px;
+}
+
+.home-container h1 {
+    color: #00adb5; /* Türkis */
+    margin-bottom: 30px;
+}
+
+.home-container div {
+    color: #eeeeee; /* Helles Grau */
+    margin-bottom: 10px;
+}
+.home-container p {
+    color: #eeeeee; /* Helles Grau */
+}
+.home-container Link {
+    color: #eeeeee; /* Helles Grau */
+    text-decoration: none;
+}

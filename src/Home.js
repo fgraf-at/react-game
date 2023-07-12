@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { getPlayers } from './firebaseService';
-
+import { getPlayersForSession} from './firebaseService';
+import './Home.css';
+import {Link} from "react-router-dom";
 function Home() {
-  const [players, setPlayers] = useState([]);
+  const [ setPlayers] = useState([]);
 
   useEffect(() => {
-    getPlayers()
+      let sessionId = sessionStorage.getItem('sessionId');
+      getPlayersForSession(sessionId)
       .then((querySnapshot) => {
-        console.log('QuerySnapshot:', querySnapshot);
         const players = querySnapshot;
-        console.log('Players:', players);
         setPlayers(players);
       })
       .catch((error) => {
@@ -17,15 +17,13 @@ function Home() {
       });
   }, []);
 
+
+
   return (
-    <div>
-      <h1>Willkommen beim Trinkspiel!</h1>
-      {players.length > 0 ? (
-        players.map((player, index) => <div key={index}>{player.name}</div>)
-      ) : (
-        <div>No players found.</div>
-      )}
-      {/* Hier können Sie Optionen zum Hinzufügen von Spielern oder zum Starten des Spiels anzeigen. */}
+    <div className="home-container">
+        <h1>Willkommen beim Trinkspiel!</h1>
+        <p>Hier würde normal eine Beschreibung stehen, aber darauf verzichte ich jetzt</p>
+        <Link to="/addplayer">Spieler hinzufügen</Link>
     </div>
   );
 }

@@ -1,0 +1,45 @@
+/* Navbar.css */
+nav {
+    background-color: #333;
+    padding: 1em;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav li {
+    display: inline;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover {
+    border-bottom: 2px solid white;
+}
+/* Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #393e46; /* Dunkles Grau */
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navbar a {
+    color: #eeeeee; /* Helles Grau */
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.navbar a:hover {
+    color: #00adb5; /* Türkis */
+}
