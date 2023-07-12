@@ -27,6 +27,7 @@ function Game() {
 
     async function fetchQuestion() {
         const randomQuestion = await getRandomQuestion(category || null); // Verwendung des Kategorienzustands
+        console.log(randomQuestion)
         setQuestion(randomQuestion);
     }
 
@@ -55,7 +56,7 @@ function Game() {
 
                 {currentPlayer && question ? (
                     <div className="question-container">
-                        <p><strong className="player-name">{currentPlayer.name}</strong> {question}</p>
+                        <p><strong className="player-name">{currentPlayer.name}</strong> {question.question}  {question.category}</p>
                         <button onClick={roll} className="roll-button">Neue Frage</button>
                     </div>
                 ) : (

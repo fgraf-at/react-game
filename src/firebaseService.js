@@ -90,8 +90,6 @@ export async function addQuestions(questions) {
 
     for (let question of questions) {
       const l = await addDoc(questionsCollection, question);
-      console.log(l)
-      console.log("hier")
     }
 
     console.log('Questions successfully added to Firebase!');
@@ -101,6 +99,7 @@ export async function addQuestions(questions) {
   }
 }
 
+let askedQuestions = [];
 export async function getRandomQuestion(category) {
   try {
     // Referenz zur Fragen-Sammlung
@@ -124,21 +123,33 @@ export async function getRandomQuestion(category) {
 
     // Fragen der gewählten Kategorie in ein Array konvertieren
     let questions = [];
+    let categoryQ: string = "";
     questionsData.forEach((doc) => {
-        questions.push(...doc.questions);
+      categoryQ = doc.category;
+      questions.push(...doc.questions);
     });
-    console.log(questions);
 
-    // Eine zufällige Frage auswählen
-    const randomIndex = Math.floor(Math.random() * questions.length);
-    const randomQuestion = questions[randomIndex];
+    // Eine zufällige Frage auswählen, die noch nicht gestellt wurde
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * questions.length);
+    } while (askedQuestions.includes(randomIndex) && askedQuestions.length < 70);
+
+    // Wenn wir weniger als 64 Fragen haben, leeren wir das Array
+    if (askedQuestions.length === 64) {
+      askedQuestions = [];
+    }
+
+    // Füge den Index der ausgewählten Frage zum Array hinzu
+    askedQuestions.push(randomIndex);
 
     // Die zufällig ausgewählte Frage zurückgeben
-    return randomQuestion;
+    return {question: questions[randomIndex], category: categoryQ};
   } catch (error) {
     // Fehlerbehandlung
     console.error('Error getting random question:', error);
     return null;
   }
 }
+
 

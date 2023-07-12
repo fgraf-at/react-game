@@ -22,7 +22,7 @@ function Home() {
   return (
     <div className="home-container">
         <h1>Willkommen beim Trinkspiel!</h1>
-        <p>Hier würde normal eine Beschreibung stehen, aber darauf verzichte ich jetzt</p>
+        <p>Es gibt 5 Kategorien: </p>
         <Link to="/addplayer">Spieler hinzufügen</Link>
     </div>
   );
