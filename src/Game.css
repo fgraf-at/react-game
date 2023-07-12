@@ -19,6 +19,7 @@
     color: #f9c22e; /* Gold color for player name */
     margin-right: 8px;
 }
+
 .roll-button {
     margin: 1rem;
     padding: 0.5rem 1rem;
@@ -32,4 +33,22 @@
 
 .roll-button:hover {
     background-color: #45a049;
+}
+
+/* Mobile styles */
+@media (max-width: 600px) {
+    .game-container {
+        padding: 1rem;
+    }
+
+    .question-container {
+        padding: 1rem;
+        margin: 1rem auto;
+    }
+
+    .roll-button {
+        margin: 0.5rem;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.9rem;
+    }
 }

@@ -30,19 +30,6 @@ export async function getPlayersForSession(sessionId) {
     return [];
   }
 }
-// export async function getPlayers() {
-//   try {
-//     const playersCollection = collection(db, 'players');
-//     const querySnapshot = await getDocs(playersCollection);
-//     // Process querySnapshot and return the data
-//     return querySnapshot.docs.map((doc) => doc.data());
-//   } catch (error) {
-//     // Handle error
-//     console.error('Error getting players: ', error);
-//     return [];
-//   }
-// }
-
 export async function getPlayer(playerId) {
   try {
     const playerDoc = doc(db, 'players', playerId);
@@ -89,10 +76,8 @@ export async function addQuestions(questions) {
     const questionsCollection = collection(db, 'questions');
 
     for (let question of questions) {
-      const l = await addDoc(questionsCollection, question);
+       await addDoc(questionsCollection, question);
     }
-
-    console.log('Questions successfully added to Firebase!');
   } catch (error) {
     // Fehlerbehandlung
     console.error('Error adding questions: ', error);
@@ -128,12 +113,12 @@ export async function getRandomQuestion(category) {
 
     // Eine zufällige Kategorie auswählen
     let randomCategoryIndex = Math.floor(Math.random() * categoryQuestions.length);
-    let selectedCategory = categoryQuestions[randomCategoryIndex];
+    let selectedCategoryQuestion = categoryQuestions[randomCategoryIndex];
 
     // Eine zufällige Frage aus der ausgewählten Kategorie auswählen
     let randomQuestionIndex;
     do {
-      randomQuestionIndex = Math.floor(Math.random() * selectedCategory.questions.length);
+      randomQuestionIndex = Math.floor(Math.random() * selectedCategoryQuestion.questions.length);
     } while (askedQuestions.includes(randomQuestionIndex) && askedQuestions.length < 70);
 
     // asked questions can repeat after 70 times
@@ -141,13 +126,11 @@ export async function getRandomQuestion(category) {
       askedQuestions = [];
     }
 
-    // Füge den Index der ausgewählten Frage zum Array hinzu
     askedQuestions.push(randomQuestionIndex);
 
     // Die zufällig ausgewählte Frage zurückgeben
-    return {question: selectedCategory.questions[randomQuestionIndex], category: selectedCategory.category};
+    return {question: selectedCategoryQuestion.questions[randomQuestionIndex], category: selectedCategoryQuestion.category};
   } catch (error) {
-    // Fehlerbehandlung
     console.error('Error getting random question:', error);
     return null;
   }
