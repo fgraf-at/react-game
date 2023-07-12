@@ -23,7 +23,7 @@ export async function getPlayersForSession(sessionId) {
     const playersCollection = collection(sessionRef, 'players');
     const querySnapshot = await getDocs(playersCollection);
     // Process querySnapshot and return the data
-    return querySnapshot.docs.map((doc) => doc.data());
+    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     // Handle error
     console.error('Error getting players: ', error);
@@ -151,5 +151,17 @@ export async function getRandomQuestion(category) {
     return null;
   }
 }
+
+export async function deletePlayer(sessionId, playerId) {
+  try {
+    const sessionRef = doc(db, 'sessions', sessionId);
+    const playerRef = doc(sessionRef, 'players', playerId);
+    await deleteDoc(playerRef);
+  } catch (error) {
+    // Fehlerbehandlung
+    console.error('Fehler beim Löschen des Spielers: ', error);
+  }
+}
+
 
 

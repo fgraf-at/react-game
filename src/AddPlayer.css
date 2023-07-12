@@ -21,3 +21,56 @@
     color: #eeeeee; /* Helles Grau */
     margin-bottom: 10px;
 }
+
+
+
+.add-player-container  .player-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
+    padding: 0.4rem;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.2rem;
+}
+
+.add-player-container .delete-icon {
+    color: #dc3545;
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+
+.add-player-container .player-name {
+    margin: 0;
+    font-size: 11px;
+    color: black;
+
+}
+
+
+
+
+.add-player-container .link-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.add-player-container .styled-link {
+    display: inline-block;
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin: 1rem;
+    transition: color 0.2s;
+}
+
+.add-player-container .styled-link:hover {
+    color: #0056b3;
+}
+

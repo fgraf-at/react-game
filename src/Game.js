@@ -56,7 +56,15 @@ function Game() {
 
                 {currentPlayer && question ? (
                     <div className="question-container">
-                        <p><strong className="player-name">{currentPlayer.name}</strong> {question.question}  {question.category}</p>
+
+                        <div className="player-name">Spieler: {currentPlayer.name}</div>
+
+                        <div className="category-info">
+                            <p>Kategorie: {question.category}</p>
+                        </div>
+                        <div className="question-info">
+                            <p>Frage: {question.question}</p>
+                        </div>
                         <button onClick={roll} className="roll-button">Neue Frage</button>
                     </div>
                 ) : (
